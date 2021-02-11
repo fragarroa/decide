@@ -151,6 +151,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Esto se sobreescribe con lo del final de heroku y por eso hay que quitar el '--with-xunit' de .travis.yml
+# Para mantener esto, habría que llevarlo al local_settings, pero yo he quitado la opcion de '--with-xunit'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Static files (CSS, JavaScript, Images)
