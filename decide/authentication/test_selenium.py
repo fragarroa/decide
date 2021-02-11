@@ -9,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 
 from base.tests import BaseTestCase
 
-
+"""
 # Clase de test copiada en la practica 2
 class AdminTestCase(StaticLiveServerTestCase):
 
@@ -59,3 +59,4 @@ class AdminTestCase(StaticLiveServerTestCase):
         # In case a incorrect login, a div with class 'errornote' is shown in red!
         self.assertTrue(len(self.driver.find_elements_by_class_name('errornote'))==1)
         #time.sleep(5)
+"""
