@@ -1,39 +1,40 @@
 dist: xenial
-
 services:
-  - postgresql
+- postgresql
 addons:
-  postgresql: "9.4"
+  postgresql: '9.4'
   chrome: stable
   firefox: latest
 before_script:
-  - psql -U postgres -c "create user decide password 'decide'"
-  - psql -U postgres -c "create database decidedb owner decide"
-  - psql -U postgres -c "ALTER USER decide CREATEDB"
+- psql -U postgres -c "create user decide password 'decide'"
+- psql -U postgres -c "create database decidedb owner decide"
+- psql -U postgres -c "ALTER USER decide CREATEDB"
 language: python
 python:
-  - "3.6"
+- '3.6'
 install:
-  - pip install -r requirements.txt
-  - pip install codacy-coverage
-  - wget -N https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip -P ~/
-  - unzip ~/chromedriver_linux64.zip -d ~/
-  - rm ~/chromedriver_linux64.zip
-  - sudo mv -f ~/chromedriver /usr/local/share/
-  - sudo chmod +x /usr/local/share/chromedriver
-  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+- pip install -r requirements.txt
+- pip install codacy-coverage
+- wget -N https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+  -P ~/
+- unzip ~/chromedriver_linux64.zip -d ~/
+- rm ~/chromedriver_linux64.zip
+- sudo mv -f ~/chromedriver /usr/local/share/
+- sudo chmod +x /usr/local/share/chromedriver
+- sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 script:
-  - cd decide
-  - cp travis_local_settings.py local_settings.py
-  - coverage run --branch --source=. ./manage.py test --keepdb
-  - coverage xml
-  - python-codacy-coverage -r coverage.xml
+- cd decide
+- cp travis_local_settings.py local_settings.py
+- coverage run --branch --source=. ./manage.py test --keepdb
+- coverage xml
+- python-codacy-coverage -r coverage.xml
 deploy:
   provider: heroku
   app: decide-practicas-fragarroa
   strategy: git
   # api_key: $HEROKU_AUTH_TOKEN
-  api_key: $HEROKU_AUTH_TOKEN
+  api_key:
+    secure: 1UvhZVRmaoPhTDJN9OjkdONV3SSOMImMILTP14jL0inuHduhE5w9EOzZZLRoRXYSClbNOOVKMSRJimNV+DK39hgncVn3w1VCaAKOUu+zhKGAnE+ZhN+V9yQkSLRM3fNujod6Kbl2nZDqSWWYkbtsXYm7I6ZrEVsU3i+SOwRWAHI/NK3YjBlGTZLLuwBvw5QJ3Wa2FuomOKHCDhFT+N7DQgSIHPHOrxujFAd3x+7FO5z6vcXROt8YPqUV4B1JaF6FUBnwotAreDqRws247GpvLuuu5Ufi6f8B30G4uF0LrFq5lM1BmTfTnjm2dQgLtf8AnJTScKaFos0WrRFNEsrwZ7FpgUaDMOhY2zsPe2lN8rRiMV7HA9wXfnOeggi1ovwyqOio2GwgI1BQqr1OgFdwuWox9ahT4nPdHD3q0Reeo9WHPsm3q0GwNRhD7kmvY2h/RZJKTlPyvB/7hbmChNS7xt58308MJLoCUeogotpDsXbmSZAinlGiSRvy357VRSms3lDrCMyCjm5x0VcDslG+LUJcD8o7ftCRLtBmAgl+HUttrYbp5YoGve3WeNWlnn1m9y1vzyZbtfCJLfaQE4Qao4xNx8Ob6Ki6KLV/YxUGebU/5Dmj8m7r5oNycNpkqvGJTdxnwM3fvco7blLZLDNCrlLua01er33JcmApQ2kq6No=
   on:
     branch: master
 branches:
