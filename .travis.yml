@@ -14,6 +14,12 @@ python:
 install:
 - pip install -r requirements.txt
 - pip install codacy-coverage
+- wget -N https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz -P ~/
+- tar -xzf ~/geckodriver-v0.28.0-linux64.tar.gz -C ~/
+- rm ~/geckodriver-v0.28.0-linux64.tar.gz
+- sudo mv -f ~/geckodriver /usr/local/share
+- sudo chmod +x /usr/local/share/geckodriver
+- sudo ln -s /usr/local/share/geckodriver /usr/local/bin/geckodriver
 script:
 - cd decide
 - cp travis_local_settings.py local_settings.py
